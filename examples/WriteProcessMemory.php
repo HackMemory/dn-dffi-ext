@@ -2,16 +2,16 @@
 
 function write(){
 	$all_access = 0x000F0000 | 0x00100000 | 0xFFFF;
-	$base = 0x6FFAE0; // значение взять из консоли (victim.exe)
+	$base = 0x6FFAE0; // Р·РЅР°С‡РµРЅРёРµ РІР·СЏС‚СЊ РёР· РєРѕРЅСЃРѕР»Рё (victim.exe)
 	$newValue = 100;
 	
 	
-	$hwnd = DFFI::callFunction("user32", "int", "FindWindowA", [null, "Victim"], ["int", "string"]); //получаем хендл окна
+	$hwnd = DFFI::callFunction("user32", "int", "FindWindowA", [null, "Victim"], ["int", "string"]); //РїРѕР»СѓС‡Р°РµРј С…РµРЅРґР» РѕРєРЅР°
 	if($hwnd == 0){
 		alert("Victim not found");
 	}else{
 		$pid_ref = new DFFIReferenceValue("int");
-		DFFI::callFunction("user32", "int", "GetWindowThreadProcessId", [$hwnd, $pid_ref], ["int", "reference"]);//получаем pid процесса
+		DFFI::callFunction("user32", "int", "GetWindowThreadProcessId", [$hwnd, $pid_ref], ["int", "reference"]);//РїРѕР»СѓС‡Р°РµРј pid РїСЂРѕС†РµСЃСЃР°
 		$pid = $pid_ref->getValue();
 		
 		$hOpen = DFFI::callFunction("kernel32", "int", "OpenProcess", [$all_access, false, $pid], ["int", "bool", "int"]);
@@ -19,7 +19,7 @@ function write(){
 			alert("Process error");
 		}else{
 			$newValue_ref = new DFFIReferenceValue("int", $newValue);
-			DFFI::callFunction("kernel32", "bool", "WriteProcessMemory",     //записываем значение
+			DFFI::callFunction("kernel32", "bool", "WriteProcessMemory",     //Р·Р°РїРёСЃС‹РІР°РµРј Р·РЅР°С‡РµРЅРёРµ
 				[$hOpen, $base, $newValue_ref, sizeof($newValue), null],
 				["int", "int", "reference", "int", "int"]
 			);
