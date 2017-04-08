@@ -30,4 +30,14 @@ DFFIStruct($name, Array $types);
 getResponse();
 ```
 
+## Типы
+* String
+* WString
+* Int
+* Long
+* Float
+* Double
+* Struct
+* Reference
+
 DevelNext Foreign Function Interface
