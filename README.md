@@ -1,17 +1,33 @@
 # dn-dffi-ext
 
 ## static DFFI
-* callFunction($lib, $returnType, $functionName, Array $args, Array $types);
-* addSearchPath($lib, $path);
+```php 
+callFunction($lib, $returnType, $functionName, Array $args, Array $types);
+```
+```php
+addSearchPath($lib, $path);
+```
 
 ## DFFIReferenceValue
-* DFFIReferenceValue($type);
-* DFFIReferenceValue($type, $value);
-* setValue($value);
-* getValue();
+```php
+DFFIReferenceValue($type);
+```
+```php
+DFFIReferenceValue($type, $value);
+```
+```php
+setValue($value);
+```
+```php
+getValue();
+```
 
 ## DFFIStruct
-* DFFIStruct($name, Array $types);
-* getResponse();
+```php
+DFFIStruct($name, Array $types);
+```
+```php
+getResponse();
+```
 
 DevelNext Foreign Function Interface
