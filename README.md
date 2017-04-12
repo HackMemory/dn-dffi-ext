@@ -2,7 +2,7 @@
 
 ### DFFI
 
-#№№№ *Типы*
+#### *Типы*
 * String
 * WString
 * Int
@@ -13,7 +13,7 @@
 * Struct
 * Reference
 
-#№№№ *Функции*
+#### *Функции*
 ```php 
 DFFI::callFunction($lib, $returnType, $functionName, Array $args, Array $types);
 DFFI::addSearchPath($lib, $path);
@@ -21,7 +21,7 @@ DFFI::addSearchPath($lib, $path);
 
 ### DFFIReferenceValue ссылки на переменные
 
-#№№№ *Функции*
+#### *Функции*
 ```php
 DFFIReferenceValue($type);
 DFFIReferenceValue($type, $value);
@@ -31,7 +31,7 @@ getValue();
 
 ### DFFIStruct для работы со структурами
 
-#№№№ *Функции*
+#### *Функции*
 ```php
 DFFIStruct($name, Array $types);
 getResponse();
@@ -39,7 +39,7 @@ getResponse();
 
 ### DFFIClassLoader работа с java библиотеками
 
-#№№№ *Типы*
+#### *Типы*
 * String
 * Int
 * Char
@@ -47,7 +47,7 @@ getResponse();
 * Float
 * Double
 
-#№№№ *Функции*
+#### *Функции*
 ```php
 DFFIClassLoader($lib, $class, Array $args, Array $types);
 callMethod($functionName, $returnType, Array $args, Array $types);
