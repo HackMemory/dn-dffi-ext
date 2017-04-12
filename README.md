@@ -1,33 +1,8 @@
 # dn-dffi-ext
 
 ### DFFI
-```php 
-DFFI::callFunction($lib, $returnType, $functionName, Array $args, Array $types);
-DFFI::addSearchPath($lib, $path);
-```
 
-### DFFIReferenceValue ссылки на переменные
-```php
-DFFIReferenceValue($type);
-DFFIReferenceValue($type, $value);
-setValue($value);
-getValue();
-```
-
-### DFFIStruct для работы со структурами
-```php
-DFFIStruct($name, Array $types);
-getResponse();
-```
-
-### DFFIClassLoader работа с java библиотеками
-```php
-DFFIClassLoader($lib, $class, Array $args, Array $types);
-callMethod($functionName, $returnType, Array $args, Array $types);
-DFFIClassLoader::callStaticMethod($lib, $class, $functionName, $returnType, Array $args, Array $types);
-```
-
-### Типы
+# *Типы*
 * String
 * WString
 * Int
@@ -37,6 +12,48 @@ DFFIClassLoader::callStaticMethod($lib, $class, $functionName, $returnType, Arra
 * Double
 * Struct
 * Reference
+
+# *Функции*
+```php 
+DFFI::callFunction($lib, $returnType, $functionName, Array $args, Array $types);
+DFFI::addSearchPath($lib, $path);
+```
+
+### DFFIReferenceValue ссылки на переменные
+
+# *Функции*
+```php
+DFFIReferenceValue($type);
+DFFIReferenceValue($type, $value);
+setValue($value);
+getValue();
+```
+
+### DFFIStruct для работы со структурами
+
+# *Функции*
+```php
+DFFIStruct($name, Array $types);
+getResponse();
+```
+
+### DFFIClassLoader работа с java библиотеками
+
+# *Типы*
+* String
+* Int
+* Char
+* Long
+* Float
+* Double
+
+# *Функции*
+```php
+DFFIClassLoader($lib, $class, Array $args, Array $types);
+callMethod($functionName, $returnType, Array $args, Array $types);
+DFFIClassLoader::callStaticMethod($lib, $class, $functionName, $returnType, Array $args, Array $types);
+```
+
 
 ### Примеры
 * Byte Array:
