@@ -48,7 +48,7 @@ public class DFFIReferenceValue extends BaseObject {
 	}
 
     @Signature
-    public Memory getValue() throws AWTException {
+    public Memory getValue() throws AWTException, ClassNotFoundException {
 		return Helper.setValueToPObject(Helper.convertToJType(this.type), Helper.getValueToJRefValue(this.refval));
     }
 	

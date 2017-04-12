@@ -6,6 +6,7 @@ import php.runtime.env.Environment;
 import php.runtime.memory.ArrayMemory;
 import php.runtime.memory.LongMemory;
 import php.runtime.memory.StringMemory;
+import php.runtime.memory.ObjectMemory;
 import php.runtime.memory.DoubleMemory;
 import php.runtime.lang.ForeachIterator;
 import php.runtime.memory.KeyValueMemory;
@@ -13,6 +14,7 @@ import php.runtime.memory.ReferenceMemory;
 import php.runtime.ext.support.compile.FunctionsContainer;
 import org.develnext.jphp.ext.windows.classes.DFFIStruct;
 import org.develnext.jphp.ext.windows.classes.DFFIReferenceValue;
+import org.develnext.jphp.ext.windows.classes.DFFIClassLoader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -31,7 +33,7 @@ import static php.runtime.Memory.Type.ARRAY;
 
 public class Helper extends FunctionsContainer {
 	
-	/* Class DFFI */
+	/*** Class DFFI ***/
 	
 	public static Memory callFunction_impl(Environment env, TraceInfo trace, String lib, String returnType, String functionName, Memory args, Memory types) throws AWTException, ClassNotFoundException {
 		Memory returnValue = Memory.NULL;
@@ -66,6 +68,10 @@ public class Helper extends FunctionsContainer {
 					case "INT":
 						obj_args = addItemToObject(obj_args, value.toInteger());
 						break;
+						
+					case "CHAR":
+						obj_args = addItemToObject(obj_args, value.toString().charAt(0));
+						break;
 					
 					case "DOUBLE":
 						obj_args = addItemToObject(obj_args, value.toDouble());
@@ -83,6 +89,10 @@ public class Helper extends FunctionsContainer {
 						obj_args = addItemToObject(obj_args, new WString(value.toString()));
 						break;
 						
+					case "BYTEARRAY":
+						obj_args = addItemToObject(obj_args, hexStringToByteArray(value.toString()));
+						break;
+						
 					case "STRUCT":
 						Structure struct = (Structure)value.toObject(DFFIStruct.class).struct;
 						obj_args = addItemToObject(obj_args, struct);
@@ -91,7 +101,7 @@ public class Helper extends FunctionsContainer {
 					case "REFERENCE":
 						ByReference reference = (ByReference)value.toObject(DFFIReferenceValue.class).refval;
 						obj_args = addItemToObject(obj_args, reference);
-						break;
+						break;					
 					}
 				}
 			}
@@ -99,8 +109,8 @@ public class Helper extends FunctionsContainer {
 			
 			Class type = convertToJType(returnType);
 			Function _function = NativeLibrary.getInstance(lib).getFunction(functionName);
-			Object _returnValue = _function.invoke(type, obj_args);
-			returnValue = setValueToPObject(type, _returnValue);
+			Object response = _function.invoke(type, obj_args);
+			returnValue = setValueToPObject(type, response);
 		}
 		
 		return returnValue;
@@ -110,7 +120,7 @@ public class Helper extends FunctionsContainer {
 		NativeLibrary.addSearchPath(lib, path);
 	}
 	
-	/* Class DFFI END*/
+	/*** Class DFFI END ***/
 	
 	
 	
@@ -118,6 +128,17 @@ public class Helper extends FunctionsContainer {
 	
 	
 	
+	/*** Convert **/
+	
+	public static byte[] hexStringToByteArray(String s) {
+		int len = s.length();
+		byte[] data = new byte[len / 2];
+		for (int i = 0; i < len; i += 2) {
+			data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+								 + Character.digit(s.charAt(i+1), 16));
+		}
+		return data;
+	}
 	
 	public static Memory setValueToPObject(Class<?> type, Object value){
 		Memory returnValue = Memory.NULL;
@@ -139,6 +160,32 @@ public class Helper extends FunctionsContainer {
 		return returnValue;
 	}
 	
+	
+	public static Memory setValueToPObject(Environment env, Class<?> type, Object value){
+		Memory returnValue = Memory.NULL;
+		
+		if (type==boolean.class || type==Boolean.class) {
+			if((boolean)value == true){ returnValue = Memory.TRUE; } else { returnValue = Memory.FALSE; }
+		} else if (type==int.class || type==Integer.class || type==Pointer.class) {
+			returnValue = new LongMemory((int)value);
+		} else if (type==long.class || type==Long.class) {
+			returnValue = new LongMemory((long)value);
+		} else if (type==float.class || type==Float.class) {
+			returnValue = new DoubleMemory((float)value);
+		} else if (type==double.class || type==Double.class) {
+			returnValue = new DoubleMemory((double)value);
+		} else if (type==String.class) {
+			returnValue = new StringMemory((String)value);
+		}else{
+			returnValue = new ObjectMemory(new DFFIClassLoader(env, type, value));
+		}
+		
+		return returnValue;
+	}
+	
+	
+	
+	
 	public static ByReference setValueToJRefObject(String cls, Object value){
 		ByReference c = null;
 		
@@ -149,27 +196,27 @@ public class Helper extends FunctionsContainer {
 			case "DOUBLE":	c = new DoubleByReference((double)value);		break;
 			case "FLOAT":   c = new FloatByReference((float)value); 		break;
 			case "STRING": 	c = new StringByReference((String)value); 		break;
-			case "POINTER": c = new PointerByReference((Pointer)value); 	break;
-			
+			case "POINTER": c = new PointerByReference((Pointer)value); 	break;	
 		}
 		
 		return c;
 	}
 	
 	
-	public static Class<?> convertToJType(String cls){
+	public static Class<?> convertToJType(String cls) throws ClassNotFoundException{
 		Class c = Class.class;
 		
-		cls = cls.toUpperCase();
-		switch(cls){
-			case "INT":		c = int.class; 			break;
-			case "BOOL":	c = boolean.class; 		break;
-			case "LONG":	c = long.class;			break;
-			case "DOUBLE":	c = double.class;		break;
-			case "FLOAT":   c = float.class; 		break;
-			case "STRING": 	c = String.class; 		break;
-			case "POINTER": c = Pointer.class; 		break;
-			
+		String cls_up = cls.toUpperCase();
+		switch(cls_up){
+			case "INT":		c = int.class; 				break;
+			case "CHAR":	c = char.class; 			break;
+			case "BOOL":	c = boolean.class; 			break;
+			case "LONG":	c = long.class;				break;
+			case "DOUBLE":	c = double.class;			break;
+			case "FLOAT":   c = float.class; 			break;
+			case "STRING": 	c = String.class; 			break;
+			case "POINTER": c = Pointer.class; 			break;
+			default: 		c = Class.forName (cls); 	break;
 		}
 		
 		return c;
@@ -201,7 +248,6 @@ public class Helper extends FunctionsContainer {
 			case "FLOAT":   c = new FloatByReference(); 		break;
 			case "STRING": 	c = new StringByReference(); 		break;
 			case "POINTER": c = new PointerByReference(); 		break;
-			
 		}
 		
 		return c;
@@ -271,7 +317,7 @@ public class Helper extends FunctionsContainer {
 	}
 	
 	
-	
+	/*** Convert **/
 	
 	
 	
@@ -290,8 +336,6 @@ public class Helper extends FunctionsContainer {
 		temp.add(newCls);
 		return temp.toArray(cls);
 	}
-	
-	
 	
 	
 	

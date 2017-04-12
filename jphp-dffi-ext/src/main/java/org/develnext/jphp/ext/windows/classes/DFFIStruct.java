@@ -29,7 +29,7 @@ public class DFFIStruct extends BaseObject {
     }
 
 	@Signature
-    public void __construct(Environment env, String name, ArrayMemory types) {
+    public void __construct(Environment env, String name, ArrayMemory types) throws ClassNotFoundException {
 		Class[] classes = {};
 		ForeachIterator iterator = types.getNewIterator(env, false, false);
 		while (iterator.next()) {
@@ -43,12 +43,12 @@ public class DFFIStruct extends BaseObject {
     public ArrayMemory getResponse() throws AWTException, IllegalAccessException {
 		ArrayMemory fields_arr = new ArrayMemory();
 		Field[] fields = this.struct.getClass().getDeclaredFields();
-		Integer index = 0;
+		//Integer index = 0;
 		
 		for(Field itm : fields){
 			Object value = itm.get(this.struct);
-			fields_arr.put(index.toString(), Helper.setValueToPObject(value.getClass(), value));
-			index++;
+			fields_arr.add(Helper.setValueToPObject(value.getClass(), value));
+			//index++;
 		}
 		
 		return fields_arr;
