@@ -46,6 +46,7 @@ getResponse();
 * Long
 * Float
 * Double
+* Class
 
 #### *Функции*
 ```php
@@ -56,13 +57,13 @@ DFFIClassLoader::callStaticMethod($lib, $class, $functionName, $returnType, Arra
 
 
 ### Примеры
-* Byte Array:
+#### *Byte Array:*
 ```php
 $bytearray = "909090"; // тоже самое, что и 0x90 0x90 0x90
 DFFI::callFunction("lib.dll", "int", "testFunction", [$bytearray], ["bytearray"]);
 ```
 
-* DFFIClassLoader:
+#### *DFFIClassLoader:*
 ```php
 $str = new DFFIClassLoader("", "java.lang.String", ["Hello World!"], ["string"]);
 $str2 = $str->callMethod("replaceAll", "string", ["World", "Java"], ["string", "string"]);
