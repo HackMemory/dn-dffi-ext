@@ -1,6 +1,5 @@
-# dn-dffi-ext
 
-### DFFI
+## DFFI
 
 #### *Типы*
 * String
@@ -19,7 +18,7 @@ DFFI::callFunction($lib, $returnType, $functionName, Array $args, Array $types);
 DFFI::addSearchPath($lib, $path);
 ```
 
-### DFFIReferenceValue ссылки на переменные
+## DFFIReferenceValue ссылки на переменные
 
 #### *Функции*
 ```php
@@ -29,7 +28,7 @@ setValue($value);
 getValue();
 ```
 
-### DFFIStruct для работы со структурами
+## DFFIStruct для работы со структурами
 
 #### *Функции*
 ```php
@@ -37,7 +36,7 @@ DFFIStruct($name, Array $types);
 getResponse();
 ```
 
-### DFFIClassLoader работа с java библиотеками
+## DFFIClassLoader работа с java библиотеками
 
 #### *Типы*
 * String
@@ -56,7 +55,7 @@ DFFIClassLoader::callStaticMethod($lib, $class, $functionName, $returnType, Arra
 ```
 
 
-### Примеры
+## Примеры
 #### *Byte Array:*
 ```php
 $bytearray = "909090"; // тоже самое, что и 0x90 0x90 0x90
