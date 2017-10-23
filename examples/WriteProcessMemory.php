@@ -1,4 +1,5 @@
 <?php
+//для теста, запустите bin/victim.exe
 
 $user32 = new DFFI("user32");
 $kernel32 = new DFFI("kernel32");
