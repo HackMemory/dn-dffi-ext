@@ -13,7 +13,7 @@ if($hwnd == 0){
 	alert("Victim not found");
 }else{
 	$pid_ref = new DFFIReferenceValue("int");
-	$user32->GetWindowThreadProcessId("int", [$hwnd, $pid_ref], ["int", "reference"]);//получаем pid процесса
+	$user32->GetWindowThreadProcessId("int", [$hwnd, $pid_ref], ["int", "ref"]);//получаем pid процесса
 	$pid = $pid_ref->getValue();
 
 	$hOpen = $kernel32->OpenProcess("int", [$all_access, false, $pid], ["int", "bool", "int"]);
@@ -23,7 +23,7 @@ if($hwnd == 0){
 		$newValue_ref = new DFFIReferenceValue("int", $newValue);
 		$kernel32->WriteProcessMemory("bool",
 			[$hOpen, $base, $newValue_ref, sizeof($newValue), null],
-			["int", "int", "reference", "int", "int"]
+			["int", "int", "ref", "int", "int"]
 		);
 	}
 }
