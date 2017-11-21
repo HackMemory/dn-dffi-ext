@@ -1,0 +1,29 @@
+group 'org.develnext.jphp'
+version '0.9.3' + (java.lang.Boolean.getBoolean("release") ? '' : '-SNAPSHOT');
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.8
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'net.java.dev.jna', name: 'jna', version: '4.5.0'
+
+    provided "org.develnext.jphp:jphp-runtime:${rootProject.ext.jphpVersion}"
+	provided "org.develnext.jphp:jphp-zend-ext:${rootProject.ext.jphpVersion}"
+}

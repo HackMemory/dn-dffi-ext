@@ -1,0 +1,5 @@
+
+// JPHP Version.
+ext {
+    jphpVersion = '0.9.3-SNAPSHOT'
+}
