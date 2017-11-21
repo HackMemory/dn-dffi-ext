@@ -7,7 +7,7 @@
 use system\DFFI;
 
 $user32 = new DFFI("user32");
-$user32->bind("MessageBoxA", "int", ["int", "string", "string", "int"]);
+$user32->bind("MessageBoxA", DFFIType::INT, [DFFIType::INT, DFFIType::STRING, DFFIType::STRING, DFFIType::INT]);
 
 DFFI::MessageBoxA(0, "Hello", "HelloWorld", 0);
 ```
