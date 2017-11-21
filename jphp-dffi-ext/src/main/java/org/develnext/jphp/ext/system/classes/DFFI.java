@@ -1,8 +1,6 @@
 package org.develnext.jphp.ext.system.classes;
 
 import org.develnext.jphp.ext.system.DFFIExtension;
-import org.develnext.jphp.ext.system.classes.Helper;
-
 import php.runtime.Memory;
 import php.runtime.annotation.Reflection;
 import php.runtime.memory.*;

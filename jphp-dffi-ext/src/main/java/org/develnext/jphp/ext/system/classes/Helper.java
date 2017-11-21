@@ -5,8 +5,6 @@ import php.runtime.env.TraceInfo;
 import php.runtime.env.Environment;
 import php.runtime.memory.*;
 import php.runtime.lang.ForeachIterator;
-//import org.develnext.jphp.ext.windows.classes.DFFIStruct;
-//import org.develnext.jphp.ext.windows.classes.DFFIReferenceValue;
 import org.develnext.jphp.zend.ext.standard.*;
 
 import java.io.ByteArrayOutputStream;
