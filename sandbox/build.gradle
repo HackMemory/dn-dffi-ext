@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'php.runtime.launcher.Launcher'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':jphp-dffi-ext')
+    compile "org.develnext.jphp:jphp-core:${rootProject.ext.jphpVersion}"
+}
