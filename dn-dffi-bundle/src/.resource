@@ -4,5 +4,5 @@ group=system
 icon=develnext/bundle/dffi/icon.png
 version=0.5
 
-class=develnext\\bundle\\windows\\DFFIBundle
+class=develnext\\bundle\\system\\DFFIBundle
 author=HackMemory (vk.com/dragon_warri0r)
