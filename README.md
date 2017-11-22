@@ -1,10 +1,11 @@
 # DevelNext Foreign Function Interface
 
-#### *Example*
+#### *Пример*
 
 ```php
 <?php
 use system\DFFI;
+use system\DFFIType;
 
 $user32 = new DFFI("user32");
 $user32->bind("MessageBoxA", DFFIType::INT, [DFFIType::INT, DFFIType::STRING, DFFIType::STRING, DFFIType::INT]);
