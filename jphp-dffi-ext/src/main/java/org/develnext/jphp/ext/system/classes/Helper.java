@@ -237,7 +237,7 @@ public class Helper {
 			temp.add(result);
 		}
 		
-		Class[] result = temp.toArray(new Class[0]);
+		Class[] result = (Class[])temp.toArray();
 		return result;
 	}
 	
