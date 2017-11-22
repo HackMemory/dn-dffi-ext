@@ -1,6 +1,6 @@
 # DevelNext Foreign Function Interface
 
-#### *Example*
+#### *Пример*
 
 ```php
 <?php
