@@ -1,5 +1,5 @@
 <?php
-namespace develnext\bundle\windows;
+namespace develnext\bundle\dffi;
 
 use ide\bundle\AbstractJarBundle;
 
