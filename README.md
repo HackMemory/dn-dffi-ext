@@ -13,3 +13,4 @@ $user32->bind("MessageBoxA", DFFIType::INT, [DFFIType::INT, DFFIType::STRING, DF
 
 DFFI::MessageBoxA(0, "Hello", "HelloWorld", 0);
 ```
+Акпер Алиев, ты куда пропал? Дай мне ссылку на твою страницу вк или что нибудь другое.
