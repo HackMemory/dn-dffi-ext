@@ -1,5 +1,7 @@
 # DevelNext Foreign Function Interface
 
+#### This repository is archived. New repository: https://github.com/jphp-group/jphp-dffi-ext
+
 #### *Пример*
 
 ```php
